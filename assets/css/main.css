@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* Custom theme configuration for Tailwind CSS v4 */
+@theme {
+  /* Spring-inspired color palette */
+  --color-spring-50: #f0fdf4;
+  --color-spring-100: #dcfce7;
+  --color-spring-200: #bbf7d0;
+  --color-spring-300: #86efac;
+  --color-spring-400: #4ade80;
+  --color-spring-500: #22c55e;
+  --color-spring-600: #16a34a;
+  --color-spring-700: #15803d;
+  --color-spring-800: #166534;
+  --color-spring-900: #14532d;
+  --color-spring-950: #052e16;
+
+  /* Accent colors */
+  --color-accent-50: #faf5ff;
+  --color-accent-100: #f3e8ff;
+  --color-accent-200: #e9d5ff;
+  --color-accent-300: #d8b4fe;
+  --color-accent-400: #c084fc;
+  --color-accent-500: #a855f7;
+  --color-accent-600: #9333ea;
+  --color-accent-700: #7e22ce;
+  --color-accent-800: #6b21a8;
+  --color-accent-900: #581c87;
+  --color-accent-950: #3b0764;
+
+  /* Font families */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Cal Sans", "Inter", system-ui, sans-serif;
+}
+
+/* Base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 antialiased;
+  }
+}
+
+/* Component styles */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 font-medium rounded-lg transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-spring-600 text-white hover:bg-spring-700 focus:ring-2 focus:ring-spring-500 focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply border-2 border-spring-600 text-spring-600 hover:bg-spring-50 focus:ring-2 focus:ring-spring-500 focus:ring-offset-2;
+  }
+
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Utility animations */
+@layer utilities {
+  /* Fade in animation for elements appearing on page */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Staggered animation delay utilities */
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+}
