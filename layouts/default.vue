@@ -4,6 +4,7 @@ const navigation = [
   { name: 'Episodes', href: '/episodes' },
   { name: 'Schedule', href: '/schedule' },
   { name: 'Potluck', href: '/potluck' },
+  { name: 'Community', href: '/community' },
   { name: 'Subscribe', href: '/subscribe' },
   { name: 'About', href: '/about' },
 ]
