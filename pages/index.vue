@@ -128,7 +128,7 @@ const subscribeLinks = [
                       <img
                         src="/dashaun_avatar.png"
                         alt="DaShaun Carter"
-                        class="relative max-w-full max-h-full object-contain transform group-hover:scale-105 transition-transform duration-300"
+                        class="relative max-w-full max-h-full object-contain scale-110 transform group-hover:scale-115 transition-transform duration-300"
                       />
                     </div>
                     <div class="mt-4 text-center">
