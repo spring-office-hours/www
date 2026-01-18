@@ -9,14 +9,14 @@ const platforms = [
   {
     name: 'Apple Podcasts',
     description: 'Listen on your iPhone, iPad, or Mac',
-    href: 'https://podcasts.apple.com/us/podcast/spring-office-hours/id1705442696',
+    href: 'https://podcasts.apple.com/us/podcast/spring-office-hours/id1684981362',
     icon: 'apple',
     color: 'bg-gray-900 hover:bg-gray-800',
   },
   {
     name: 'Spotify',
     description: 'Stream on Spotify for free',
-    href: 'https://open.spotify.com/show/0USQE0bCpvvzk4FRls2FEK',
+    href: 'https://open.spotify.com/show/7duUEA5BL1RRQI6aloOX4E',
     icon: 'spotify',
     color: 'bg-[#1DB954] hover:bg-[#1aa34a]',
   },
@@ -28,16 +28,16 @@ const platforms = [
     color: 'bg-[#FF0000] hover:bg-[#cc0000]',
   },
   {
-    name: 'Google Podcasts',
-    description: 'Listen on Android and Google Home',
-    href: 'https://podcasts.google.com/feed/aHR0cHM6Ly9mZWVkcy50cmFuc2lzdG9yLmZtL3NwcmluZy1vZmZpY2UtaG91cnM',
-    icon: 'google',
-    color: 'bg-[#4285F4] hover:bg-[#3367d6]',
+    name: 'Pocket Casts',
+    description: 'Listen on any device with Pocket Casts',
+    href: 'https://pca.st/itunes/1684981362',
+    icon: 'pocketcasts',
+    color: 'bg-[#F43E37] hover:bg-[#d9352f]',
   },
   {
     name: 'Amazon Music',
     description: 'Available on Alexa and Echo devices',
-    href: 'https://music.amazon.com/podcasts/spring-office-hours',
+    href: 'https://music.amazon.com/podcasts/8cf400c6-4a10-4e31-82b7-8be0d08047d1',
     icon: 'amazon',
     color: 'bg-[#FF9900] hover:bg-[#e68a00]',
   },
@@ -89,9 +89,9 @@ const platforms = [
             <svg v-else-if="platform.icon === 'youtube'" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
               <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
             </svg>
-            <!-- Google -->
-            <svg v-else-if="platform.icon === 'google'" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
+            <!-- Pocket Casts -->
+            <svg v-else-if="platform.icon === 'pocketcasts'" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm0 3.6c4.636 0 8.4 3.764 8.4 8.4 0 4.636-3.764 8.4-8.4 8.4-4.636 0-8.4-3.764-8.4-8.4 0-4.636 3.764-8.4 8.4-8.4zm0 2.4a6 6 0 100 12 6 6 0 000-12zm0 2.4a3.6 3.6 0 110 7.2 3.6 3.6 0 010-7.2z" />
             </svg>
             <!-- Amazon -->
             <svg v-else-if="platform.icon === 'amazon'" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
