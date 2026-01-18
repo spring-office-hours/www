@@ -1,8 +1,8 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Potluck Q&A - Spring Office Hours',
+  title: 'Potluck Q&A & Topic Ideas - Spring Office Hours',
   description:
-    'Submit your questions for our Potluck episodes! Every now and then we dedicate an episode to answering listener questions about Spring, Java, and software development.',
+    'Submit your questions for our Potluck episodes or suggest topics for future shows! We dedicate episodes to answering listener questions about Spring, Java, and software development.',
 })
 
 const form = reactive({
@@ -52,7 +52,7 @@ async function handleSubmit() {
         <div class="max-w-3xl mx-auto text-center">
           <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6">
             <span class="text-2xl">🍲</span>
-            <span class="text-white text-sm font-medium">Community Q&A</span>
+            <span class="text-white text-sm font-medium">Community Q&A & Ideas</span>
           </div>
 
           <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
@@ -60,8 +60,8 @@ async function handleSubmit() {
           </h1>
 
           <p class="text-lg md:text-xl text-spring-100 leading-relaxed">
-            Got questions about Spring, Java, or software development? Submit them here and we might
-            answer them in an upcoming Potluck episode!
+            Got questions about Spring, Java, or software development? Want to suggest topics for future episodes?
+            Submit them here and we might feature them in an upcoming show!
           </p>
         </div>
       </div>
@@ -85,6 +85,11 @@ async function handleSubmit() {
                 <p>
                   These episodes are some of our favorites because they're driven entirely by what
                   you want to learn. No question is too simple or too complex.
+                </p>
+                <p>
+                  We also love hearing your <strong>topic suggestions</strong> for future episodes.
+                  Have a Spring feature you'd like us to explore or a guest you'd love to hear from?
+                  Let us know!
                 </p>
               </div>
             </div>
@@ -136,10 +141,10 @@ async function handleSubmit() {
       <div class="container-narrow">
         <div class="text-center mb-12">
           <h2 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mb-4">
-            Submit Your Question
+            Submit Your Question or Topic Idea
           </h2>
           <p class="text-gray-600 max-w-xl mx-auto">
-            Have a burning question? Drop it below and we might feature it in our next Potluck episode!
+            Have a burning question or a topic you'd like us to cover? Drop it below and we might feature it in an upcoming episode!
           </p>
         </div>
 
@@ -158,16 +163,16 @@ async function handleSubmit() {
               />
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">Question Submitted!</h3>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Submission Received!</h3>
           <p class="text-gray-600 mb-6">
-            Thanks for your question! We'll review it and might feature it in an upcoming Potluck
+            Thanks for your submission! We'll review it and might feature it in an upcoming
             episode. Stay tuned!
           </p>
           <button
             class="btn btn-primary"
             @click="submitSuccess = false"
           >
-            Submit Another Question
+            Submit Another
           </button>
         </div>
 
@@ -188,7 +193,7 @@ async function handleSubmit() {
           <!-- Question -->
           <div class="mb-6">
             <label for="question" class="block text-sm font-medium text-gray-700 mb-2">
-              Your Question <span class="text-red-500">*</span>
+              Your Question or Topic Idea <span class="text-red-500">*</span>
             </label>
             <textarea
               id="question"
@@ -197,7 +202,7 @@ async function handleSubmit() {
               required
               minlength="10"
               class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-spring-500 focus:border-spring-500 transition-colors resize-none"
-              placeholder="What would you like us to answer? Be as specific as you'd like..."
+              placeholder="Ask a question or suggest a topic for a future episode..."
             />
             <p class="mt-1 text-sm text-gray-500">
               The more context you provide, the better we can answer your question.
@@ -261,7 +266,7 @@ async function handleSubmit() {
               </svg>
               Submitting...
             </span>
-            <span v-else>Submit Question</span>
+            <span v-else>Submit</span>
           </button>
         </form>
       </div>

@@ -233,10 +233,10 @@ const subscribeLinks = [
             suggestions.
           </p>
           <NuxtLink
-            to="/requests"
+            to="/potluck"
             class="btn bg-white text-spring-700 hover:bg-spring-50"
           >
-            Submit a Request
+            Submit a Question or Idea
           </NuxtLink>
         </div>
       </div>

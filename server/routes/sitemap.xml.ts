@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     { url: '/', priority: 1.0, changefreq: 'daily' },
     { url: '/episodes', priority: 0.9, changefreq: 'daily' },
     { url: '/schedule', priority: 0.7, changefreq: 'weekly' },
-    { url: '/requests', priority: 0.6, changefreq: 'monthly' },
+    { url: '/potluck', priority: 0.6, changefreq: 'monthly' },
     { url: '/subscribe', priority: 0.6, changefreq: 'monthly' },
     { url: '/about', priority: 0.5, changefreq: 'monthly' },
   ]

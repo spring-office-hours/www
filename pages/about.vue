@@ -233,22 +233,12 @@ const hosts = [
             We love hearing from our listeners! Submit your episode ideas, questions, or guest
             suggestions.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <NuxtLink
-              to="/requests"
-              class="inline-flex items-center justify-center px-6 py-3.5 bg-white hover:bg-spring-50 text-spring-700 font-semibold rounded-lg transition-all duration-200 hover:shadow-lg"
-            >
-              Submit Episode Request
-            </NuxtLink>
-            <a
-              href="https://twitter.com/therealdanvega"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center justify-center px-6 py-3.5 border-2 border-white/30 hover:border-white/50 text-white font-medium rounded-lg transition-all duration-200 hover:bg-white/10"
-            >
-              Contact on Twitter
-            </a>
-          </div>
+          <NuxtLink
+            to="/potluck"
+            class="inline-flex items-center justify-center px-6 py-3.5 bg-white hover:bg-spring-50 text-spring-700 font-semibold rounded-lg transition-all duration-200 hover:shadow-lg"
+          >
+            Submit a Question or Idea
+          </NuxtLink>
         </div>
       </div>
     </section>

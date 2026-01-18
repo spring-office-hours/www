@@ -3,13 +3,6 @@ import type { H3Event } from 'h3'
 const NOTION_API_BASE = 'https://api.notion.com/v1'
 const NOTION_VERSION = '2022-06-28'
 
-export interface NotionRequestSubmission {
-  name: string
-  email: string
-  topic: string
-  description: string
-}
-
 export interface PotluckQuestionSubmission {
   question: string
   name: string
@@ -37,49 +30,9 @@ export async function getNotionConfig(event: H3Event) {
 
   return {
     apiKey: config.notionApiKey,
-    requestsDbId: config.notionRequestsDbId,
     scheduleDbId: config.notionScheduleDbId,
     potluckDbId: config.notionPotluckDbId,
   }
-}
-
-export async function submitEpisodeRequest(
-  event: H3Event,
-  data: NotionRequestSubmission
-): Promise<{ success: boolean; id?: string }> {
-  const { apiKey, requestsDbId } = await getNotionConfig(event)
-
-  if (!requestsDbId) {
-    throw createError({
-      statusCode: 500,
-      message: 'Notion Requests database ID not configured',
-    })
-  }
-
-  const response = await $fetch<{ id: string }>(`${NOTION_API_BASE}/pages`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Notion-Version': NOTION_VERSION,
-      'Content-Type': 'application/json',
-    },
-    body: {
-      parent: { database_id: requestsDbId },
-      properties: {
-        Name: {
-          title: [{ text: { content: data.name } }],
-        },
-        Email: {
-          email: data.email,
-        },
-        'Topic Suggestion': {
-          rich_text: [{ text: { content: data.topic + (data.description ? `\n\n${data.description}` : '') } }],
-        },
-      },
-    },
-  })
-
-  return { success: true, id: response.id }
 }
 
 export async function submitPotluckQuestion(

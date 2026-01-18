@@ -3,7 +3,6 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: 'Episodes', href: '/episodes' },
   { name: 'Schedule', href: '/schedule' },
-  { name: 'Request', href: '/requests' },
   { name: 'Potluck', href: '/potluck' },
   { name: 'Subscribe', href: '/subscribe' },
   { name: 'About', href: '/about' },

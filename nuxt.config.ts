@@ -47,7 +47,6 @@ export default defineNuxtConfig({
     transistorApiKey: process.env.TRANSISTOR_API_KEY,
     transistorShowId: process.env.TRANSISTOR_SHOW_ID,
     notionApiKey: process.env.NOTION_API_KEY,
-    notionRequestsDbId: process.env.NOTION_REQUESTS_DB_ID,
     notionScheduleDbId: process.env.NOTION_SCHEDULE_DB_ID,
     notionPotluckDbId: process.env.NOTION_POTLUCK_DB_ID,
     public: {
