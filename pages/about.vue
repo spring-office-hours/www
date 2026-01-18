@@ -99,7 +99,7 @@ const hosts = [
                     </svg>
                   </div>
                   <div>
-                    <div class="font-semibold text-gray-900">100+ Episodes</div>
+                    <div class="font-semibold text-gray-900">140+ Episodes</div>
                     <div class="text-sm text-gray-500">And counting!</div>
                   </div>
                 </div>

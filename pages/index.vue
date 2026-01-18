@@ -82,7 +82,7 @@ const subscribeLinks = [
             <!-- Stats -->
             <div class="flex items-center justify-center lg:justify-start gap-8 mt-10 pt-10 border-t border-white/20">
               <div>
-                <div class="text-2xl font-bold text-white">100+</div>
+                <div class="text-2xl font-bold text-white">140+</div>
                 <div class="text-sm text-spring-200">Episodes</div>
               </div>
               <div>
