@@ -11,9 +11,18 @@ interface Testimonial {
   handle: string
   avatar?: string
   platform: 'twitter' | 'linkedin' | 'bluesky'
+  featured?: boolean
 }
 
 const testimonials: Testimonial[] = [
+  {
+    quote: "The Spring Office Hours is truly an amazing podcast. It's always delightful to listen to the insights around what's latest happening in the Spring and Java world. It really helps to keep me ahead of curve and to know around the better ways to solve problems with Spring. I heard around GraalVM in one of those episodes where Dan and DeShaun were discussing it and then I applied it into one of my projects to run Python and JavaScript engines via GraalVM libraries right within the JVM. Thanks Dan and DeShaun for Spring Office Hours. Please keep it coming!",
+    name: 'Muhammad Salman Farooq',
+    handle: 'Software Architect | Java & AI Applications Developer',
+    avatar: '/images/community/avatars/MuhammadSalmanFarooq .jpeg',
+    platform: 'linkedin',
+    featured: true,
+  },
   {
     quote: "Spring Office hours is the thing that I wish I had when I was starting my career. Navigating tech - which is a complex space is not easy - as everything moves fast - and having you guys means that people can ask for help, stay up to date, and get involved in the community. GJ!",
     name: 'ATokarev90',
@@ -121,7 +130,10 @@ const shouldShowAvatar = (testimonial: Testimonial, index: number) => {
           <div
             v-for="(testimonial, index) in testimonials"
             :key="index"
-            class="bg-white rounded-2xl border border-gray-200 p-6"
+            :class="[
+              'bg-white rounded-2xl border border-gray-200 p-6 transition-all duration-300 hover:shadow-[0_0_30px_rgba(22,163,74,0.15)] hover:border-spring-300',
+              testimonial.featured ? 'md:col-span-2 lg:col-span-3' : ''
+            ]"
           >
             <!-- Platform Icon -->
             <div class="mb-4">
