@@ -24,6 +24,13 @@ const testimonials: Testimonial[] = [
     featured: true,
   },
   {
+    quote: "Spring.io has a release page but Spring Office Hours featuring Dan Vega and DaShaun Carter puts the releases into perspective with practical applications to boot. Every episode, I know I'll leave with at least one new gem.",
+    name: 'LawrenceDCodes',
+    handle: '@LawrenceDCodes',
+    avatar: '/images/community/avatars/LawrenceDCodes.jpg',
+    platform: 'twitter',
+  },
+  {
     quote: "Spring Office hours is the thing that I wish I had when I was starting my career. Navigating tech - which is a complex space is not easy - as everything moves fast - and having you guys means that people can ask for help, stay up to date, and get involved in the community. GJ!",
     name: 'ATokarev90',
     handle: '@ATokarev90',
@@ -77,6 +84,13 @@ const testimonials: Testimonial[] = [
     name: 'Arfat Chaus',
     handle: 'Senior Software Engineer',
     avatar: '/images/community/avatars/ArfatChaus .jpeg',
+    platform: 'linkedin',
+  },
+  {
+    quote: "I enjoy attending Spring Office Hours via livestream or recorded videos, and I've built apps by following along with the sessions.",
+    name: 'Vamshi Nizampatnam',
+    handle: 'Experienced Software Developer | 11 Years in Java, Spring Boot, React',
+    avatar: '/images/community/avatars/VamshiNizampatnam .jpeg',
     platform: 'linkedin',
   },
 ]
