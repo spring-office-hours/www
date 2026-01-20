@@ -10,7 +10,7 @@ const hosts = [
     name: 'Dan Vega',
     role: 'Spring Developer Advocate',
     bio: 'Dan has been writing software for over 20 years and creating content online since the dial-up modem days. He\'s passionate about helping developers learn new technologies and sharing his knowledge through tutorials, courses, and podcasts.',
-    avatar: '/dan_avatar.png',
+    avatar: '/images/avatars/dan_avatar.png',
     socials: [
       { name: 'Twitter', href: 'https://twitter.com/therealdanvega', icon: 'twitter' },
       { name: 'YouTube', href: 'https://www.youtube.com/@danvega', icon: 'youtube' },
@@ -24,7 +24,7 @@ const hosts = [
     name: 'DaShaun Carter',
     role: 'Spring Developer Advocate',
     bio: 'DaShaun is passionate about developer experience and helping teams deliver software more efficiently. He loves working with Spring Boot, Kubernetes, and cloud-native technologies.',
-    avatar: '/dashaun_avatar.png',
+    avatar: '/images/avatars/dashaun_avatar.png',
     socials: [
       { name: 'Twitter', href: 'https://twitter.com/dashaun', icon: 'twitter' },
       { name: 'GitHub', href: 'https://github.com/dashaun', icon: 'github' },

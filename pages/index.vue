@@ -115,7 +115,7 @@ const subscribeLinks = [
                     <div class="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center">
                       <div class="absolute -inset-2 bg-spring-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <img
-                        src="/dan_avatar.png"
+                        src="/images/avatars/dan_avatar.png"
                         alt="Dan Vega"
                         class="relative max-w-full max-h-full object-contain scale-90 transform group-hover:scale-95 transition-transform duration-300"
                       />
@@ -131,7 +131,7 @@ const subscribeLinks = [
                     <div class="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center">
                       <div class="absolute -inset-2 bg-spring-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <img
-                        src="/dashaun_avatar.png"
+                        src="/images/avatars/dashaun_avatar.png"
                         alt="DaShaun Carter"
                         class="relative max-w-full max-h-full object-contain scale-110 transform group-hover:scale-115 transition-transform duration-300"
                       />

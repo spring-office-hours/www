@@ -27,7 +27,7 @@ const mobileMenuOpen = ref(false)
       <nav class="container-wide flex items-center justify-between py-4">
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center gap-3">
-          <img src="/spring_logo.png" alt="Spring Logo" class="w-10 h-10 rounded-lg" />
+          <img src="/images/spring_logo.png" alt="Spring Logo" class="w-10 h-10 rounded-lg" />
           <span class="font-display font-semibold text-xl text-gray-900">
             Spring Office Hours
           </span>
@@ -109,7 +109,7 @@ const mobileMenuOpen = ref(false)
           <!-- About -->
           <div>
             <div class="flex items-center gap-3 mb-4">
-              <img src="/spring_logo.png" alt="Spring Logo" class="w-8 h-8 rounded-lg" />
+              <img src="/images/spring_logo.png" alt="Spring Logo" class="w-8 h-8 rounded-lg" />
               <span class="font-display font-semibold text-lg">Spring Office Hours</span>
             </div>
             <p class="text-gray-600 text-sm">
