@@ -115,7 +115,6 @@ const mobileMenuOpen = ref(false)
             <p class="text-gray-600 text-sm">
               A podcast about Spring Framework, Spring Boot, and the Java ecosystem with Dan Vega and DaShaun Carter.
             </p>
-            <img src="/images/tanzu-1024x284.webp" alt="VMware Tanzu" class="mt-4 h-16" />
           </div>
 
           <!-- Links -->
