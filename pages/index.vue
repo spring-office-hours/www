@@ -22,7 +22,7 @@ const subscribeLinks = [
   },
   {
     name: 'Spotify',
-    href: 'https://open.spotify.com/show/0USQE0bCpvvzk4FRls2FEK',
+    href: 'https://open.spotify.com/show/7duUEA5BL1RRQI6aloOX4E',
     icon: 'spotify',
   },
   {
