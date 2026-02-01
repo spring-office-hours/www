@@ -16,6 +16,8 @@ export interface ScheduleItem {
   date: string
   guests: string
   status: string
+  abstract: string
+  youtube: string
 }
 
 export async function getNotionConfig(event: H3Event) {
@@ -135,6 +137,8 @@ export async function fetchSchedule(event: H3Event): Promise<ScheduleItem[]> {
       date: page.properties.Date?.date?.start || '',
       guests,
       status: (page.properties.Status as any)?.select?.name || '',
+      abstract: (page.properties.Abstract as any)?.rich_text?.map((t: any) => t.plain_text).join('') || '',
+      youtube: (page.properties.YouTube as any)?.url || '',
     }
   })
 }
