@@ -9,13 +9,24 @@ const { data: scheduleData, status } = await useFetch('/api/schedule')
 
 function formatDate(dateString: string): string {
   if (!dateString) return 'TBD'
-  // Parse date parts to avoid timezone issues (YYYY-MM-DD format)
-  const [year, month, day] = dateString.split('-').map(Number)
+  // Handle both YYYY-MM-DD and full ISO datetime strings
+  const [datePart] = dateString.split('T')
+  const [year, month, day] = datePart.split('-').map(Number)
   const date = new Date(year, month - 1, day)
   return date.toLocaleDateString('en-US', {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
+  })
+}
+
+function formatTime(dateString: string): string | null {
+  if (!dateString || !dateString.includes('T')) return null
+  const date = new Date(dateString)
+  return date.toLocaleTimeString('en-US', {
+    timeZone: 'America/New_York',
+    hour: 'numeric',
+    minute: '2-digit',
   })
 }
 </script>
@@ -74,6 +85,10 @@ function formatDate(dateString: string): string {
             <div class="flex-shrink-0">
               <div class="inline-flex items-center px-3 py-1 rounded-full bg-spring-50 text-spring-700 text-sm font-medium whitespace-nowrap">
                 {{ formatDate(item.date) }}
+                <template v-if="formatTime(item.date)">
+                  <span class="mx-1.5 text-spring-300">·</span>
+                  {{ formatTime(item.date) }} ET
+                </template>
               </div>
             </div>
 
