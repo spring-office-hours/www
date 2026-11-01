@@ -12,10 +12,12 @@
     "lint": "nuxt typecheck"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
     "nuxt": "^4.2.2",
     "vue": "^3.5.26",
     "vue-router": "^4.6.4",
-    "yaml": "^2.9.1"
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",

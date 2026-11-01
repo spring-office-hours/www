@@ -114,6 +114,21 @@ useSeoMeta({
           https://feeds.transistor.fm/spring-office-hours
         </code>
       </div>
+
+      <div class="max-w-2xl mx-auto mt-6 p-6 bg-gray-50 rounded-xl text-center">
+        <h3 class="font-semibold text-gray-900 mb-2">Use an AI assistant?</h3>
+        <p class="text-gray-600 text-base/7 sm:text-sm/6 mb-4 text-pretty">
+          Add our MCP server to Claude, ChatGPT, Cursor or any MCP client.
+          Your assistant can search every episode, pull up show notes and see what's coming up next.
+        </p>
+        <code class="block bg-white px-4 py-2 rounded-lg text-sm text-gray-700 border border-gray-200 select-all">
+          https://springofficehours.io/mcp
+        </code>
+        <p class="text-gray-600 text-base/7 sm:text-sm/6 mt-4 mb-2">In Claude Code:</p>
+        <code class="block bg-white px-4 py-2 rounded-lg text-sm text-gray-700 border border-gray-200 select-all overflow-x-auto whitespace-nowrap">
+          claude mcp add --transport http spring-office-hours https://springofficehours.io/mcp
+        </code>
+      </div>
     </div>
     </section>
   </div>
