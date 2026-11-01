@@ -7,7 +7,7 @@ useSeoMeta({
 
 const route = useRoute()
 const currentPage = computed(() => Number(route.query.page) || 1)
-const perPage = 12
+const perPage = 20
 const searchQuery = ref('')
 const selectedSeason = ref<string>('')
 
@@ -52,6 +52,20 @@ const paginatedEpisodes = computed(() => {
 })
 
 const totalPages = computed(() => Math.ceil(filteredEpisodes.value.length / perPage) || 1)
+
+const seasonGroups = computed(() => {
+  const groups: { season: number; episodes: any[] }[] = []
+  for (const episode of paginatedEpisodes.value) {
+    const last = groups.at(-1)
+    if (last?.season === episode.season) last.episodes.push(episode)
+    else groups.push({ season: episode.season, episodes: [episode] })
+  }
+  return groups
+})
+
+watch([searchQuery, selectedSeason], () => {
+  if (currentPage.value > 1) goToPage(1)
+})
 
 function goToPage(page: number) {
   navigateTo({
@@ -138,24 +152,21 @@ function clearFilters() {
         Found {{ filteredEpisodes.length }} episode{{ filteredEpisodes.length !== 1 ? 's' : '' }}
       </p>
 
-      <!-- Episodes Grid -->
-      <div v-if="status === 'pending'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div
-          v-for="i in perPage"
-          :key="i"
-          class="bg-gray-100 rounded-xl h-80 animate-pulse"
-        />
+      <div v-if="status === 'pending'" class="flex flex-col gap-4">
+        <div v-for="i in 6" :key="i" class="h-24 animate-pulse rounded-xl bg-gray-100" />
       </div>
 
-      <div
-        v-else-if="paginatedEpisodes.length"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-      >
-        <EpisodeCard
-          v-for="episode in paginatedEpisodes"
-          :key="episode.id"
-          :episode="episode"
-        />
+      <div v-else-if="paginatedEpisodes.length" class="flex flex-col gap-10">
+        <section v-for="group in seasonGroups" :key="group.season">
+          <h2 class="border-b border-gray-950/10 pb-3 font-display text-xl font-semibold text-gray-900">
+            Season {{ group.season }}
+          </h2>
+          <ul role="list" class="divide-y divide-gray-950/5">
+            <li v-for="episode in group.episodes" :key="episode.id">
+              <EpisodeRow :episode="episode" />
+            </li>
+          </ul>
+        </section>
       </div>
 
       <div v-else class="text-center py-12 text-gray-500">

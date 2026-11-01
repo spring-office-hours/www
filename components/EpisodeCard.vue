@@ -3,6 +3,7 @@ interface Episode {
   id: string
   slug: string
   title: string
+  shortTitle?: string
   number: number
   season: number
   summary: string
@@ -59,7 +60,7 @@ const length = computed(() =>
           :to="`/episodes/${episode.slug}`"
           class="hover:text-spring-600 transition-colors"
         >
-          {{ episode.title }}
+          {{ episode.shortTitle || episode.title }}
         </NuxtLink>
       </h3>
 

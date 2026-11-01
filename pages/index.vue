@@ -11,8 +11,22 @@ useSeoMeta({
 })
 
 const { data: episodesData, status } = await useFetch('/api/episodes', {
-  query: { page: 1, perPage: 6 },
+  query: { page: 1, perPage: 5 },
 })
+
+const latest = computed(() => episodesData.value?.episodes?.[0])
+const recent = computed(() => episodesData.value?.episodes?.slice(1) ?? [])
+
+const latestDate = computed(() =>
+  latest.value?.publishedAt
+    ? new Date(latest.value.publishedAt).toLocaleDateString('en-US', {
+        timeZone: 'America/New_York',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    : ''
+)
 
 </script>
 
@@ -141,35 +155,99 @@ const { data: episodesData, status } = await useFetch('/api/episodes', {
     <!-- Latest Episodes -->
     <section class="py-16 md:py-24">
       <div class="container-wide">
-        <div class="flex items-center justify-between mb-10">
-          <h2 class="text-2xl md:text-3xl font-display font-bold text-gray-900">
-            Latest Episodes
-          </h2>
+        <div class="flex items-end justify-between gap-6">
+          <div>
+            <h2 class="font-display text-3xl font-semibold tracking-tight text-balance text-gray-900">
+              Latest episodes
+            </h2>
+            <p class="mt-3 max-w-[56ch] text-base/7 text-pretty text-gray-600">
+              Conversations about Spring, Java and the people who build with them.
+            </p>
+          </div>
           <NuxtLink
             to="/episodes"
-            class="text-spring-600 hover:text-spring-700 font-medium transition-colors"
+            class="shrink-0 font-medium text-spring-700 hover:text-spring-800 max-sm:hidden"
           >
-            View All →
+            All {{ episodesData?.meta?.totalCount }} episodes →
           </NuxtLink>
         </div>
 
-        <div v-if="status === 'pending'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div
-            v-for="i in 6"
-            :key="i"
-            class="bg-gray-100 rounded-xl h-80 animate-pulse"
-          />
+        <div v-if="status === 'pending'" class="mt-10 grid gap-12 lg:grid-cols-12">
+          <div class="h-96 animate-pulse rounded-2xl bg-gray-100 lg:col-span-7" />
+          <div class="h-96 animate-pulse rounded-2xl bg-gray-100 lg:col-span-5" />
         </div>
 
-        <div
-          v-else-if="episodesData?.episodes?.length"
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <EpisodeCard
-            v-for="episode in episodesData.episodes"
-            :key="episode.id"
-            :episode="episode"
-          />
+        <div v-else-if="latest" class="mt-10 grid items-start gap-12 lg:grid-cols-12">
+          <article class="rounded-2xl border border-gray-950/10 p-6 sm:p-8 lg:col-span-7">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <p class="rounded-full bg-spring-100 px-2.5 py-0.5 text-sm/6 font-medium text-spring-800">
+                New episode
+              </p>
+              <p class="text-base/7 text-gray-500 sm:text-sm/6">
+                Season {{ latest.season }}, Episode {{ latest.number }}
+              </p>
+            </div>
+
+            <h3 class="mt-5 max-w-[30ch] font-display text-3xl font-semibold tracking-tight text-balance text-gray-900 sm:text-4xl">
+              <NuxtLink :to="`/episodes/${latest.slug}`" class="hover:text-spring-700">
+                {{ latest.shortTitle }}
+              </NuxtLink>
+            </h3>
+
+            <p
+              v-if="latest.summary"
+              class="mt-4 line-clamp-4 max-w-[60ch] text-lg/8 text-pretty text-gray-600 sm:text-base/7"
+            >
+              {{ latest.summary }}
+            </p>
+
+            <p class="mt-4 text-base/7 text-gray-500 sm:text-sm/6">
+              <time :datetime="latest.publishedAt">{{ latestDate }}</time>
+              <span aria-hidden="true"> · </span>
+              {{ Math.round(latest.duration / 60) }} min
+            </p>
+
+            <audio
+              :src="latest.mediaUrl"
+              controls
+              preload="none"
+              class="mt-6 w-full"
+              :aria-label="`Play ${latest.shortTitle}`"
+            />
+
+            <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <NuxtLink
+                :to="`/episodes/${latest.slug}`"
+                class="font-medium text-spring-700 hover:text-spring-800"
+              >
+                Show notes →
+              </NuxtLink>
+              <a
+                v-if="latest.youtubeUrl"
+                :href="latest.youtubeUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-medium text-gray-700 hover:text-gray-900"
+              >
+                Watch on YouTube
+              </a>
+            </div>
+          </article>
+
+          <div class="lg:col-span-5">
+            <h3 class="text-base/7 font-medium text-gray-500 sm:text-sm/6">Earlier episodes</h3>
+            <ul role="list" class="mt-2 divide-y divide-gray-950/5">
+              <li v-for="episode in recent" :key="episode.id">
+                <EpisodeRow :episode="episode" compact />
+              </li>
+            </ul>
+            <NuxtLink
+              to="/episodes"
+              class="mt-4 inline-flex font-medium text-spring-700 hover:text-spring-800 sm:hidden"
+            >
+              All {{ episodesData?.meta?.totalCount }} episodes →
+            </NuxtLink>
+          </div>
         </div>
 
         <div v-else class="text-center py-12 text-gray-500">

@@ -138,7 +138,7 @@ const youtubeVideoId = computed(() => {
 
           <!-- Title -->
           <h1 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
-            {{ episode.title }}
+            {{ episode.shortTitle || episode.title }}
           </h1>
 
           <!-- Summary -->

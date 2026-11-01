@@ -1,4 +1,11 @@
-import { fetchAllEpisodes, fetchEpisodeBySlug, formatDuration } from '~/server/utils/transistor'
+import {
+  episodeSummary,
+  fetchAllEpisodes,
+  fetchEpisodeBySlug,
+  formatDuration,
+  shortTitle,
+  toEpisodeListItem,
+} from '~/server/utils/transistor'
 
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, 'slug')
@@ -30,18 +37,7 @@ export default defineEventHandler(async (event) => {
           ep.attributes.season === episode.attributes.season
       )
       .slice(0, 3)
-      .map((ep) => ({
-        id: ep.id,
-        slug: ep.attributes.slug,
-        title: ep.attributes.title,
-        number: ep.attributes.number,
-        season: ep.attributes.season,
-        summary: ep.attributes.summary,
-        publishedAt: ep.attributes.published_at,
-        formattedDate: ep.attributes.formatted_published_at,
-        duration: ep.attributes.duration,
-        durationFormatted: formatDuration(ep.attributes.duration),
-      }))
+      .map(toEpisodeListItem)
   } catch {
     // Silently fail - related episodes are optional
   }
@@ -50,9 +46,10 @@ export default defineEventHandler(async (event) => {
     id: episode.id,
     slug: episode.attributes.slug,
     title: episode.attributes.title,
+    shortTitle: shortTitle(episode.attributes.title),
     number: episode.attributes.number,
     season: episode.attributes.season,
-    summary: episode.attributes.summary,
+    summary: episodeSummary(episode.attributes.description),
     description: episode.attributes.description,
     publishedAt: episode.attributes.published_at,
     formattedDate: episode.attributes.formatted_published_at,

@@ -60,6 +60,63 @@ export function formatDuration(seconds: number): string {
   return `${minutes}m ${secs}s`
 }
 
+const SHOW_INTRO = /^join .*(?:latest|what[’']s new)/i
+const PLUGS = [/live ?stream/i, /podcast platform/i, /^show notes/i]
+
+function decodeEntities(text: string): string {
+  return text
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&rsquo;|&lsquo;/g, "'")
+    .replace(/&ldquo;|&rdquo;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+}
+
+// Transistor summaries are empty, so build one from the description.
+// Most descriptions open with the same "Join Dan Vega and DaShaun Carter..." line
+// and close with a live stream plug and a show notes link list.
+export function episodeSummary(description: string | null | undefined): string {
+  if (!description) return ''
+  const beforeNotes = description.split(/show notes/i)[0] ?? ''
+  const text = decodeEntities(beforeNotes.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim()
+  // Split only where a space follows the stop, so "Spring Boot 3.2" stays whole.
+  const sentences = text.split(/(?<=[.!?]["'”’)]*)\s+/).filter(Boolean)
+  const content = sentences.filter((s) => !PLUGS.some((pattern) => pattern.test(s)))
+  const withoutIntro = content.filter((s) => !SHOW_INTRO.test(s))
+  return (withoutIntro.length ? withoutIntro : content)
+    .join(' ')
+    .replace(/^in this episode,?\s*/i, '')
+    .replace(/^./, (c) => c.toUpperCase())
+}
+
+// "S5E27 - Title", "S5E18: Title" and "Spring Office Hours: Episode 37 - Title" all become "Title".
+export function shortTitle(title: string): string {
+  return title
+    .replace(/^spring office hours\s*[-:–]\s*/i, '')
+    .replace(/^(?:episode\s*\d+|s\d+\s*e\d+)\s*[-:–]\s*/i, '')
+    .trim()
+}
+
+export function toEpisodeListItem(ep: TransistorEpisode) {
+  return {
+    id: ep.id,
+    slug: ep.attributes.slug,
+    title: ep.attributes.title,
+    shortTitle: shortTitle(ep.attributes.title),
+    number: ep.attributes.number,
+    season: ep.attributes.season,
+    summary: episodeSummary(ep.attributes.description),
+    publishedAt: ep.attributes.published_at,
+    formattedDate: ep.attributes.formatted_published_at,
+    duration: ep.attributes.duration,
+    durationFormatted: formatDuration(ep.attributes.duration),
+    mediaUrl: ep.attributes.media_url,
+    youtubeUrl: ep.attributes.video_url ?? null,
+  }
+}
+
 export async function getTransistorApiKey(event: H3Event): Promise<string> {
   const config = useRuntimeConfig(event)
   const apiKey = config.transistorApiKey
