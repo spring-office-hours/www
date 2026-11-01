@@ -84,60 +84,50 @@ export async function getTransistorShowId(event: H3Event): Promise<string> {
   return showId
 }
 
-export async function fetchEpisodes(
-  event: H3Event,
-  options: { page?: number; perPage?: number } = {}
+async function fetchEpisodePage(
+  apiKey: string,
+  showId: string,
+  page: number
 ): Promise<TransistorResponse> {
-  const apiKey = await getTransistorApiKey(event)
-  const showId = await getTransistorShowId(event)
-  const { page = 1, perPage = 10 } = options
-
-  const response = await $fetch<TransistorResponse>(
-    `${TRANSISTOR_API_BASE}/episodes`,
-    {
-      headers: {
-        'x-api-key': apiKey,
-      },
-      query: {
-        show_id: showId,
-        'pagination[page]': page,
-        'pagination[per]': perPage,
-        status: 'published',
-      },
-    }
-  )
-
-  return response
+  return await $fetch<TransistorResponse>(`${TRANSISTOR_API_BASE}/episodes`, {
+    headers: {
+      'x-api-key': apiKey,
+    },
+    query: {
+      show_id: showId,
+      'pagination[page]': page,
+      'pagination[per]': 100,
+      status: 'published',
+    },
+  })
 }
+
+// Transistor returns at most 100 episodes per page, so walk every page.
+export const fetchAllEpisodes = defineCachedFunction(
+  async (event: H3Event): Promise<TransistorEpisode[]> => {
+    const apiKey = await getTransistorApiKey(event)
+    const showId = await getTransistorShowId(event)
+
+    const first = await fetchEpisodePage(apiKey, showId, 1)
+    const rest = await Promise.all(
+      Array.from({ length: first.meta.totalPages - 1 }, (_, i) =>
+        fetchEpisodePage(apiKey, showId, i + 2)
+      )
+    )
+    return [first, ...rest].flatMap((response) => response.data)
+  },
+  { name: 'transistor-episodes', getKey: () => 'all', maxAge: 300 }
+)
 
 export async function fetchEpisodeBySlug(
   event: H3Event,
   slug: string
 ): Promise<TransistorEpisode | null> {
-  const apiKey = await getTransistorApiKey(event)
-  const showId = await getTransistorShowId(event)
-
-  // Fetch all episodes to find by slug (Transistor doesn't have slug endpoint)
-  const response = await $fetch<TransistorResponse>(
-    `${TRANSISTOR_API_BASE}/episodes`,
-    {
-      headers: {
-        'x-api-key': apiKey,
-      },
-      query: {
-        show_id: showId,
-        'pagination[page]': 1,
-        'pagination[per]': 100,
-        status: 'published',
-      },
-    }
-  )
-
-  const episode = response.data.find((ep) => ep.attributes.slug === slug)
+  const episodes = await fetchAllEpisodes(event)
+  const episode = episodes.find((ep) => ep.attributes.slug === slug)
   if (!episode) return null
 
-  // Fetch full episode details to get all attributes (including youtube_url)
-  // The list endpoint may not return all fields
+  // The list endpoint leaves out some fields, such as video_url.
   return await fetchEpisodeById(event, episode.id)
 }
 

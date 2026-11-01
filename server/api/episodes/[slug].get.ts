@@ -1,4 +1,4 @@
-import { fetchEpisodeBySlug, fetchEpisodes, formatDuration } from '~/server/utils/transistor'
+import { fetchAllEpisodes, fetchEpisodeBySlug, formatDuration } from '~/server/utils/transistor'
 
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, 'slug')
@@ -22,8 +22,8 @@ export default defineEventHandler(async (event) => {
   // Fetch related episodes from the same season (excluding current episode)
   let relatedEpisodes: any[] = []
   try {
-    const allEpisodes = await fetchEpisodes(event, { page: 1, perPage: 100 })
-    relatedEpisodes = allEpisodes.data
+    const allEpisodes = await fetchAllEpisodes(event)
+    relatedEpisodes = allEpisodes
       .filter(
         (ep) =>
           ep.id !== episode.id &&

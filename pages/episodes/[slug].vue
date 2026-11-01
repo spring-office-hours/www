@@ -11,13 +11,17 @@ if (error.value) {
   })
 }
 
+// Transistor episodes have no artwork of their own, so share the site image.
+const shareImage = computed(() => episode.value?.imageUrl || 'https://springofficehours.io/og-image.png')
+
 useSeoMeta({
   title: () => episode.value ? `${episode.value.title} - Spring Office Hours` : 'Episode - Spring Office Hours',
   description: () => episode.value?.summary || '',
   ogTitle: () => episode.value?.title || 'Spring Office Hours Episode',
   ogDescription: () => episode.value?.summary || '',
   ogType: 'article',
-  ogImage: () => episode.value?.imageUrl || '',
+  ogImage: shareImage,
+  twitterImage: shareImage,
   twitterCard: 'summary_large_image',
 })
 
@@ -35,7 +39,7 @@ useHead({
           datePublished: episode.value?.publishedAt,
           duration: `PT${Math.floor((episode.value?.duration || 0) / 60)}M`,
           url: `https://springofficehours.io/episodes/${slug}`,
-          image: episode.value?.imageUrl,
+          image: shareImage.value,
           partOfSeries: {
             '@type': 'PodcastSeries',
             name: 'Spring Office Hours',

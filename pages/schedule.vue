@@ -98,7 +98,7 @@ function formatTime(dateString: string): string | null {
                 <span v-if="item.episodeCode" class="text-gray-400 font-normal">{{ item.episodeCode }}</span>
                 {{ item.title }}
               </h2>
-              <p v-if="item.guests && item.guests.trim()" class="text-gray-600 mt-1">
+              <p v-if="item.guests.trim() && !item.title.includes(item.guests.trim())" class="text-gray-600 mt-1">
                 with {{ item.guests }}
               </p>
               <p v-if="item.abstract" class="text-gray-500 text-sm mt-2 line-clamp-3">

@@ -1,4 +1,4 @@
-import { fetchEpisodes } from '~/server/utils/transistor'
+import { fetchAllEpisodes } from '~/server/utils/transistor'
 
 interface SitemapUrl {
   url: string
@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
     { url: '/episodes', priority: 0.9, changefreq: 'daily' },
     { url: '/schedule', priority: 0.7, changefreq: 'weekly' },
     { url: '/potluck', priority: 0.6, changefreq: 'monthly' },
+    { url: '/community', priority: 0.5, changefreq: 'monthly' },
     { url: '/subscribe', priority: 0.6, changefreq: 'monthly' },
     { url: '/about', priority: 0.5, changefreq: 'monthly' },
   ]
@@ -25,8 +26,8 @@ export default defineEventHandler(async (event) => {
   let episodeUrls: SitemapUrl[] = []
 
   try {
-    const response = await fetchEpisodes(event, { page: 1, perPage: 100 })
-    episodeUrls = response.data.map((ep) => ({
+    const episodes = await fetchAllEpisodes(event)
+    episodeUrls = episodes.map((ep) => ({
       url: `/episodes/${ep.attributes.slug}`,
       priority: 0.8,
       changefreq: 'monthly',

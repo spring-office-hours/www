@@ -5,6 +5,10 @@ useSeoMeta({
     'Learn about Spring Office Hours podcast and meet your hosts Dan Vega and DaShaun Carter.',
 })
 
+const { data: episodesData } = await useFetch('/api/episodes', {
+  query: { perPage: 1 },
+})
+
 const hosts = [
   {
     name: 'Dan Vega',
@@ -50,7 +54,7 @@ const hosts = [
             <svg class="w-4 h-4 text-spring-300" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
             </svg>
-            <span class="text-white text-sm font-medium">Live every Monday</span>
+            <span class="text-white text-sm font-medium">Live on YouTube</span>
           </div>
 
           <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
@@ -58,7 +62,7 @@ const hosts = [
           </h1>
 
           <p class="text-lg md:text-xl text-spring-100 leading-relaxed">
-            Your weekly deep dive into Spring Framework, Spring Boot, and the Java ecosystem.
+            Your deep dive into Spring Framework, Spring Boot, and the Java ecosystem.
             Join Dan and DaShaun as they explore new features, best practices, and chat with
             guests from the Spring community.
           </p>
@@ -77,8 +81,8 @@ const hosts = [
               </h2>
               <div class="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Every week, Dan and DaShaun get together to talk about what's happening in the Spring
-                  ecosystem. Whether it's a new release, a deep dive into a specific technology, or an
+                  Dan and DaShaun get together live on YouTube to talk about what's happening in the
+                  Spring ecosystem. Whether it's a new release, a deep dive into a specific technology, or an
                   interview with someone from the community, there's always something interesting to
                   discuss.
                 </p>
@@ -99,7 +103,7 @@ const hosts = [
                     </svg>
                   </div>
                   <div>
-                    <div class="font-semibold text-gray-900">140+ Episodes</div>
+                    <div class="font-semibold text-gray-900">{{ episodesData?.meta?.totalCount || 'Over 100' }} Episodes</div>
                     <div class="text-sm text-gray-500">And counting!</div>
                   </div>
                 </div>
@@ -121,8 +125,8 @@ const hosts = [
                     </svg>
                   </div>
                   <div>
-                    <div class="font-semibold text-gray-900">Weekly Episodes</div>
-                    <div class="text-sm text-gray-500">New content every Monday</div>
+                    <div class="font-semibold text-gray-900">Live on YouTube</div>
+                    <div class="text-sm text-gray-500">Ask your questions in the chat</div>
                   </div>
                 </div>
               </div>

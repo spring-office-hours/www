@@ -86,6 +86,9 @@ export async function fetchSchedule(event: H3Event): Promise<ScheduleItem[]> {
     })
   }
 
+  // Keep a show listed through its whole day in Eastern time.
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date())
+
   const response = await $fetch<{
     results: Array<{
       id: string
@@ -104,10 +107,15 @@ export async function fetchSchedule(event: H3Event): Promise<ScheduleItem[]> {
     },
     body: {
       filter: {
-        property: 'Status',
-        select: {
-          equals: 'Scheduled',
-        },
+        and: [
+          { property: 'Status', select: { equals: 'Scheduled' } },
+          {
+            or: [
+              { property: 'Date', date: { on_or_after: today } },
+              { property: 'Date', date: { is_empty: true } },
+            ],
+          },
+        ],
       },
       sorts: [
         { property: 'Date', direction: 'ascending' },

@@ -10,6 +10,15 @@ const navigation = [
 ]
 
 const mobileMenuOpen = ref(false)
+
+const route = useRoute()
+const { siteUrl } = useRuntimeConfig().public
+const canonicalUrl = computed(() => `${siteUrl}${route.path}`)
+
+useHead({
+  link: [{ rel: 'canonical', href: canonicalUrl }],
+})
+useSeoMeta({ ogUrl: canonicalUrl })
 </script>
 
 <template>
@@ -136,34 +145,14 @@ const mobileMenuOpen = ref(false)
           <div>
             <h3 class="font-semibold text-gray-900 mb-4">Subscribe</h3>
             <ul class="space-y-2">
-              <li>
+              <li v-for="platform in featuredPlatforms" :key="platform.name">
                 <a
-                  href="https://podcasts.apple.com/us/podcast/spring-office-hours"
+                  :href="platform.href"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-gray-600 hover:text-spring-600 text-sm transition-colors"
                 >
-                  Apple Podcasts
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://open.spotify.com/show/spring-office-hours"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-600 hover:text-spring-600 text-sm transition-colors"
-                >
-                  Spotify
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.youtube.com/@SpringSourceDev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-600 hover:text-spring-600 text-sm transition-colors"
-                >
-                  YouTube
+                  {{ platform.name }}
                 </a>
               </li>
             </ul>

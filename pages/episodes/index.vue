@@ -11,11 +11,8 @@ const perPage = 12
 const searchQuery = ref('')
 const selectedSeason = ref<string>('')
 
-const { data: episodesData, status } = await useFetch('/api/episodes', {
-  query: {
-    perPage: 100, // Fetch all episodes for client-side filtering/pagination
-  },
-})
+// Loads every episode so search and the season filter work on the client.
+const { data: episodesData, status } = await useFetch('/api/episodes')
 
 // Get unique seasons for filter
 const seasons = computed(() => {

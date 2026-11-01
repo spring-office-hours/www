@@ -2,10 +2,10 @@
 useSeoMeta({
   title: 'Spring Office Hours - A Podcast about Spring & Java',
   description:
-    'Join Dan Vega and DaShaun Carter for weekly discussions about Spring Framework, Spring Boot, and the Java ecosystem.',
+    'Join Dan Vega and DaShaun Carter for conversations about Spring Framework, Spring Boot, and the Java ecosystem.',
   ogTitle: 'Spring Office Hours Podcast',
   ogDescription:
-    'Weekly discussions about Spring Framework, Spring Boot, and the Java ecosystem.',
+    'Conversations about Spring Framework, Spring Boot, and the Java ecosystem.',
   ogType: 'website',
   twitterCard: 'summary_large_image',
 })
@@ -14,28 +14,6 @@ const { data: episodesData, status } = await useFetch('/api/episodes', {
   query: { page: 1, perPage: 6 },
 })
 
-const subscribeLinks = [
-  {
-    name: 'Apple Podcasts',
-    href: 'https://podcasts.apple.com/us/podcast/spring-office-hours/id1705442696',
-    icon: 'apple',
-  },
-  {
-    name: 'Spotify',
-    href: 'https://open.spotify.com/show/7duUEA5BL1RRQI6aloOX4E',
-    icon: 'spotify',
-  },
-  {
-    name: 'YouTube',
-    href: 'https://www.youtube.com/@SpringSourceDev',
-    icon: 'youtube',
-  },
-  {
-    name: 'Amazon Music',
-    href: 'https://music.amazon.com/podcasts/8cf400c6-4a10-4e31-82b7-8be0d08047d1',
-    icon: 'amazon',
-  },
-]
 </script>
 
 <template>
@@ -54,7 +32,7 @@ const subscribeLinks = [
           <div class="text-center lg:text-left order-2 lg:order-1">
             <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6">
               <span class="w-2 h-2 bg-spring-300 rounded-full animate-pulse" />
-              <span class="text-white text-sm font-medium">New episodes weekly</span>
+              <span class="text-white text-sm font-medium">Live on YouTube</span>
             </div>
 
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
@@ -62,7 +40,7 @@ const subscribeLinks = [
             </h1>
 
             <p class="text-lg md:text-xl text-spring-100 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Your weekly deep dive into Spring Framework, Spring Boot, and the Java ecosystem
+              Your deep dive into Spring Framework, Spring Boot, and the Java ecosystem
               with Dan Vega and DaShaun Carter.
             </p>
 
@@ -86,13 +64,13 @@ const subscribeLinks = [
 
             <!-- Stats -->
             <div class="flex items-center justify-center lg:justify-start gap-8 mt-10 pt-10 border-t border-white/20">
-              <div>
-                <div class="text-2xl font-bold text-white">140+</div>
+              <div v-if="episodesData?.meta?.totalCount">
+                <div class="text-2xl font-bold text-white">{{ episodesData.meta.totalCount }}</div>
                 <div class="text-sm text-spring-200">Episodes</div>
               </div>
-              <div>
-                <div class="text-2xl font-bold text-white">Weekly</div>
-                <div class="text-sm text-spring-200">New Content</div>
+              <div v-if="episodesData?.meta?.latestSeason">
+                <div class="text-2xl font-bold text-white">{{ episodesData.meta.latestSeason }}</div>
+                <div class="text-sm text-spring-200">Seasons</div>
               </div>
               <div>
                 <div class="text-2xl font-bold text-white">1hr</div>
@@ -144,12 +122,12 @@ const subscribeLinks = [
                 </div>
 
                 <!-- "Conversation" element -->
-                <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-spring-900 border border-spring-600/40 rounded-full px-4 py-2 shadow-lg">
+                <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-spring-900 border border-spring-600/40 rounded-full px-4 py-2 shadow-lg">
                   <div class="flex items-center gap-2 text-sm text-spring-100">
                     <svg class="w-4 h-4 text-spring-400" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
                     </svg>
-                    <span>Live every Monday</span>
+                    <span>Ask questions live</span>
                   </div>
                 </div>
               </div>
@@ -212,7 +190,7 @@ const subscribeLinks = [
           </p>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <a
-              v-for="link in subscribeLinks"
+              v-for="link in featuredPlatforms"
               :key="link.name"
               :href="link.href"
               target="_blank"

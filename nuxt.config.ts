@@ -29,7 +29,8 @@ export default defineNuxtConfig({
         { property: 'og:locale', content: 'en_US' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:site', content: '@therealdanvega' },
-        { property: 'og:image', content: 'https://springofficehours.io/og-image.svg' },
+        { property: 'og:image', content: 'https://springofficehours.io/og-image.png' },
+        { name: 'twitter:image', content: 'https://springofficehours.io/og-image.png' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
       ],
@@ -38,7 +39,6 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' },
-        { rel: 'canonical', href: 'https://springofficehours.io' },
       ],
     },
   },
@@ -56,10 +56,6 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: 'netlify',
-    prerender: {
-      crawlLinks: true,
-      routes: ['/sitemap.xml'],
-    },
   },
 
   routeRules: {
