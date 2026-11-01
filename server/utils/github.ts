@@ -163,5 +163,12 @@ export const fetchPotluckQuestions = defineCachedFunction(
       answered: questions.filter((q) => q.isAnswered && q.episode).slice(0, 6),
     }
   },
-  { name: 'potluck-questions', getKey: () => 'all', maxAge: 300 }
+  {
+    name: 'potluck-questions',
+    getKey: (event: H3Event) => {
+      const { owner, name, category } = discussionsConfig(event)
+      return `${owner}-${name}-${category}`
+    },
+    maxAge: 300,
+  }
 )

@@ -51,7 +51,7 @@ export default defineNuxtConfig({
     potluckDryRun: process.env.POTLUCK_DRY_RUN,
     public: {
       siteUrl: process.env.SITE_URL || 'https://springofficehours.io',
-      githubDiscussionsRepo: process.env.GITHUB_DISCUSSIONS_REPO || 'spring-office-hours/spring-office-hours-podcast',
+      githubDiscussionsRepo: process.env.GITHUB_DISCUSSIONS_REPO || 'spring-office-hours/www',
     },
   },
 
