@@ -174,7 +174,7 @@ const youtubeVideoId = computed(() => {
         </div>
 
         <!-- Share Button -->
-        <div class="flex items-center gap-4 mb-8">
+        <div class="flex flex-wrap items-center gap-4 mb-8">
           <button
             class="btn btn-secondary"
             @click="shareEpisode"
@@ -189,6 +189,12 @@ const youtubeVideoId = computed(() => {
             </svg>
             Share Episode
           </button>
+          <NuxtLink
+            :to="{ path: '/potluck', query: { episode: episode.slug }, hash: '#ask' }"
+            class="btn btn-secondary"
+          >
+            Ask a follow-up question
+          </NuxtLink>
           <a
             :href="episode.shareUrl"
             target="_blank"

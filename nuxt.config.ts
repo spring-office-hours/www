@@ -46,19 +46,22 @@ export default defineNuxtConfig({
   runtimeConfig: {
     transistorApiKey: process.env.TRANSISTOR_API_KEY,
     transistorShowId: process.env.TRANSISTOR_SHOW_ID,
-    notionApiKey: process.env.NOTION_API_KEY,
-    notionScheduleDbId: process.env.NOTION_SCHEDULE_DB_ID,
-    notionPotluckDbId: process.env.NOTION_POTLUCK_DB_ID,
+    githubToken: process.env.GITHUB_TOKEN,
+    githubDiscussionsCategory: process.env.GITHUB_DISCUSSIONS_CATEGORY || 'Q&A',
+    potluckDryRun: process.env.POTLUCK_DRY_RUN,
     public: {
       siteUrl: process.env.SITE_URL || 'https://springofficehours.io',
+      githubDiscussionsRepo: process.env.GITHUB_DISCUSSIONS_REPO || 'spring-office-hours/spring-office-hours-podcast',
     },
   },
 
   nitro: {
     preset: 'netlify',
+    serverAssets: [{ baseName: 'content', dir: '../content' }],
   },
 
   routeRules: {
     '/api/**': { cors: true },
+    '/ask': { redirect: '/potluck#ask' },
   },
 })

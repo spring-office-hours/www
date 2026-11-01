@@ -5,31 +5,41 @@ useSeoMeta({
     'Submit your questions for our Potluck episodes or suggest topics for future shows! We dedicate episodes to answering listener questions about Spring, Java, and software development.',
 })
 
+const route = useRoute()
+const followUpSlug = computed(() => (typeof route.query.episode === 'string' ? route.query.episode : ''))
+
 const form = reactive({
   question: '',
   name: '',
-  contact: '',
+  website: '',
 })
 
 const isSubmitting = ref(false)
 const submitSuccess = ref(false)
 const submitError = ref('')
+const discussionUrl = ref('')
+
+const discussionsUrl = `https://github.com/${useRuntimeConfig().public.githubDiscussionsRepo}/discussions`
+const { data: questions } = await useFetch('/api/potluck', { lazy: true })
+
+function formatAskedAt(date: string): string {
+  return new Date(date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+}
 
 async function handleSubmit() {
   isSubmitting.value = true
   submitError.value = ''
 
   try {
-    await $fetch('/api/potluck', {
+    const result = await $fetch<{ url?: string }>('/api/potluck', {
       method: 'POST',
-      body: form,
+      body: { ...form, episode: followUpSlug.value },
     })
 
+    discussionUrl.value = result.url ?? ''
     submitSuccess.value = true
-    // Reset form
     form.question = ''
     form.name = ''
-    form.contact = ''
   } catch (error: any) {
     submitError.value = error.data?.message || 'Failed to submit question. Please try again.'
   } finally {
@@ -137,7 +147,7 @@ async function handleSubmit() {
     </section>
 
     <!-- Submit Form Section -->
-    <section class="py-16 md:py-20">
+    <section id="ask" class="py-16 md:py-20 scroll-mt-20">
       <div class="container-narrow">
         <div class="text-center mb-12">
           <h2 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mb-4">
@@ -145,6 +155,9 @@ async function handleSubmit() {
           </h2>
           <p class="text-gray-600 max-w-xl mx-auto">
             Have a burning question or a topic you'd like us to cover? Drop it below and we might feature it in an upcoming episode!
+          </p>
+          <p class="mt-4 text-spring-700 font-medium max-w-xl mx-auto">
+            We read every question. If we answer yours, we'll give you a shoutout.
           </p>
         </div>
 
@@ -163,10 +176,12 @@ async function handleSubmit() {
               />
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">Submission Received!</h3>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Question Received!</h3>
           <p class="text-gray-600 mb-6">
-            Thanks for your submission! We'll review it and might feature it in an upcoming
-            episode. Stay tuned!
+            Thanks for asking. We read every question.
+            <a v-if="discussionUrl" :href="discussionUrl" target="_blank" rel="noopener noreferrer" class="text-spring-700 underline">
+              See it on GitHub.
+            </a>
           </p>
           <button
             class="btn btn-primary"
@@ -188,6 +203,11 @@ async function handleSubmit() {
             class="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 text-red-700 text-sm"
           >
             {{ submitError }}
+          </div>
+
+          <div v-if="followUpSlug" class="mb-6 bg-spring-50 border border-spring-200 rounded-lg p-4 text-sm text-spring-800">
+            Your question will link to
+            <NuxtLink :to="`/episodes/${followUpSlug}`" class="underline">this episode</NuxtLink>.
           </div>
 
           <!-- Question -->
@@ -212,34 +232,30 @@ async function handleSubmit() {
           <!-- Name -->
           <div class="mb-6">
             <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-              Your Name <span class="text-red-500">*</span>
+              Your Name or Handle (Optional)
             </label>
             <input
               id="name"
               v-model="form.name"
               type="text"
-              required
+              maxlength="80"
               class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-spring-500 focus:border-spring-500 transition-colors"
               placeholder="How should we give you a shoutout?"
             />
-          </div>
-
-          <!-- Contact (Optional) -->
-          <div class="mb-8">
-            <label for="contact" class="block text-sm font-medium text-gray-700 mb-2">
-              How Can We Reach You? (Optional)
-            </label>
-            <input
-              id="contact"
-              v-model="form.contact"
-              type="text"
-              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-spring-500 focus:border-spring-500 transition-colors"
-              placeholder="Email, Twitter/Bluesky handle, or website"
-            />
             <p class="mt-1 text-sm text-gray-500">
-              So we can give you a shoutout when we answer your question!
+              Anonymous is fine.
             </p>
           </div>
+
+          <div class="absolute -left-[9999px]" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input id="website" v-model="form.website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <p class="mb-6 text-sm text-gray-500">
+            Your question and name are posted publicly in our
+            <a :href="discussionsUrl" target="_blank" rel="noopener noreferrer" class="underline hover:text-spring-600">GitHub Discussions</a>.
+          </p>
 
           <!-- Submit Button -->
           <button
@@ -266,9 +282,67 @@ async function handleSubmit() {
               </svg>
               Submitting...
             </span>
-            <span v-else>Submit</span>
+            <span v-else>Send My Question</span>
           </button>
         </form>
+      </div>
+    </section>
+
+    <section v-if="questions?.recent?.length || questions?.answered?.length" class="pb-16 md:pb-24">
+      <div class="container-wide">
+        <div
+          :class="[
+            'grid gap-8 mx-auto',
+            questions?.answered?.length && questions?.recent?.length ? 'md:grid-cols-2 max-w-5xl' : 'max-w-2xl',
+          ]"
+        >
+          <div v-if="questions?.answered?.length">
+            <h2 class="text-2xl font-display font-bold text-gray-900 mb-6">Answered on the Show</h2>
+            <ul class="space-y-4">
+              <li
+                v-for="item in questions.answered"
+                :key="item.url"
+                class="bg-white border border-gray-100 rounded-xl p-5"
+              >
+                <a :href="item.url" target="_blank" rel="noopener noreferrer" class="font-medium text-gray-900 hover:text-spring-600 transition-colors">
+                  {{ item.title }}
+                </a>
+                <p class="mt-1 text-sm text-gray-500">Asked by {{ item.askedBy }}</p>
+                <NuxtLink
+                  v-if="item.episode"
+                  :to="item.episode.path"
+                  class="mt-3 inline-flex items-center gap-2 text-sm font-medium text-spring-700 hover:text-spring-800"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  {{ item.episode.title }}
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
+
+          <div v-if="questions?.recent?.length">
+            <h2 class="text-2xl font-display font-bold text-gray-900 mb-6">Recently Asked</h2>
+            <ul class="space-y-4">
+              <li
+                v-for="item in questions.recent"
+                :key="item.url"
+                class="bg-white border border-gray-100 rounded-xl p-5"
+              >
+                <a :href="item.url" target="_blank" rel="noopener noreferrer" class="font-medium text-gray-900 hover:text-spring-600 transition-colors">
+                  {{ item.title }}
+                </a>
+                <p class="mt-1 text-sm text-gray-500">
+                  Asked by {{ item.askedBy }} · {{ formatAskedAt(item.askedAt) }}
+                </p>
+              </li>
+            </ul>
+            <a :href="discussionsUrl" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block text-sm font-medium text-spring-700 hover:text-spring-800">
+              See every question on GitHub →
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   </div>

@@ -3,7 +3,7 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: 'Episodes', href: '/episodes' },
   { name: 'Schedule', href: '/schedule' },
-  { name: 'Potluck', href: '/potluck' },
+  { name: 'Ask a question', href: '/potluck' },
   { name: 'Community', href: '/community' },
   { name: 'Subscribe', href: '/subscribe' },
   { name: 'About', href: '/about' },
@@ -37,18 +37,18 @@ useSeoMeta({ ogUrl: canonicalUrl })
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center gap-3">
           <img src="/images/spring_logo.png" alt="Spring Logo" class="w-10 h-10 rounded-lg" />
-          <span class="font-display font-semibold text-xl text-gray-900">
+          <span class="font-display font-semibold text-xl text-gray-900 whitespace-nowrap">
             Spring Office Hours
           </span>
         </NuxtLink>
 
         <!-- Desktop Navigation -->
-        <div class="hidden md:flex items-center gap-8">
+        <div class="hidden lg:flex items-center gap-8">
           <NuxtLink
             v-for="item in navigation"
             :key="item.name"
             :to="item.href"
-            class="text-gray-600 hover:text-spring-600 font-medium transition-colors"
+            class="text-gray-600 hover:text-spring-600 font-medium whitespace-nowrap transition-colors"
             active-class="text-spring-600"
           >
             {{ item.name }}
@@ -58,7 +58,7 @@ useSeoMeta({ ogUrl: canonicalUrl })
         <!-- Mobile menu button -->
         <button
           type="button"
-          class="md:hidden p-2 text-gray-600 hover:text-gray-900"
+          class="lg:hidden p-2 text-gray-600 hover:text-gray-900"
           :aria-expanded="mobileMenuOpen"
           aria-controls="mobile-menu"
           @click="mobileMenuOpen = !mobileMenuOpen"
@@ -90,7 +90,7 @@ useSeoMeta({ ogUrl: canonicalUrl })
       </nav>
 
       <!-- Mobile Navigation -->
-      <div v-if="mobileMenuOpen" id="mobile-menu" class="md:hidden border-t border-gray-100">
+      <div v-if="mobileMenuOpen" id="mobile-menu" class="lg:hidden border-t border-gray-100">
         <div class="container-wide py-4 space-y-2">
           <NuxtLink
             v-for="item in navigation"

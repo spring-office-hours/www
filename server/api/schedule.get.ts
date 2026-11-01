@@ -1,6 +1,6 @@
-import { fetchSchedule } from '~/server/utils/notion'
+import { fetchSchedule } from '~/server/utils/schedule'
 
-export default defineEventHandler(async (event) => {
-  const schedule = await fetchSchedule(event)
+export default defineEventHandler(async () => {
+  const schedule = await fetchSchedule()
   return { schedule }
 })

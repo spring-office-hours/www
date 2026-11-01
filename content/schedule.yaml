@@ -1,0 +1,19 @@
+# Upcoming shows for springofficehours.io/schedule.
+# Add a show at the bottom, commit and push. A show drops off the page after its day (Eastern time).
+#
+# date: 2026-11-09 (a day) or 2026-11-09T11:00:00-05:00 (a day and start time)
+# episode, guests, abstract and youtube are optional.
+
+- episode: S5E27
+  title: Hugging Face for Java Developers with Pratik Patel
+  date: 2026-10-26
+  guests: Pratik Patel
+  abstract: >-
+    Join Dan Vega and DaShaun Carter for the latest updates from the Spring Ecosystem.
+    In this episode, Dan and DaShaun are joined by Java Champion Pratik Patel to talk about
+    Hugging Face for Java developers. Hugging Face hosts over a million open models, but most
+    Java developers have never used one. They discuss what Hugging Face actually is, how to find
+    a model worth using, the ways you can run open models from Java today, and when an open model
+    beats a paid API. You can participate in our live stream to ask questions or catch the replay
+    on your preferred podcast platform.
+  youtube: https://www.youtube.com/watch?v=7eQ3eXEI-co
