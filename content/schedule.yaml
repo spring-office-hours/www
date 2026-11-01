@@ -20,9 +20,10 @@
 
 - episode: S5E28
   title: Community Potluck
-  date: 2026-11-02
+  date: 2026-11-02T13:00:00-05:00
   abstract: >-
     It's potluck time. Dan and DaShaun set the planned topics aside and answer your questions.
     We'll cover the new JSON API coming to the JDK, taking Spring AI to production, keeping up
     with CVEs and upgrades, and a lightning round of career questions. Have a question?
     Ask it at springofficehours.io/ask or drop it in the live chat.
+  youtube: https://www.youtube.com/watch?v=DED62i4qOH0
