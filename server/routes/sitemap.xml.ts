@@ -19,6 +19,7 @@ export default defineEventHandler(async (event) => {
     { url: '/potluck', priority: 0.6, changefreq: 'monthly' },
     { url: '/community', priority: 0.5, changefreq: 'monthly' },
     { url: '/subscribe', priority: 0.6, changefreq: 'monthly' },
+    { url: '/mcp-server', priority: 0.5, changefreq: 'monthly' },
     { url: '/about', priority: 0.5, changefreq: 'monthly' },
   ]
 

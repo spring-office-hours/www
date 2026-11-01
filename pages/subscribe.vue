@@ -128,6 +128,9 @@ useSeoMeta({
         <code class="block bg-white px-4 py-2 rounded-lg text-sm text-gray-700 border border-gray-200 select-all overflow-x-auto whitespace-nowrap">
           claude mcp add --transport http spring-office-hours https://springofficehours.io/mcp
         </code>
+        <NuxtLink to="/mcp-server" class="mt-4 inline-flex font-medium text-spring-700 hover:text-spring-800">
+          Other clients and what to ask →
+        </NuxtLink>
       </div>
     </div>
     </section>

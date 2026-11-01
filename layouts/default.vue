@@ -138,6 +138,11 @@ useSeoMeta({ ogUrl: canonicalUrl })
                   {{ item.name }}
                 </NuxtLink>
               </li>
+              <li>
+                <NuxtLink to="/mcp-server" class="text-gray-600 hover:text-spring-600 text-sm transition-colors">
+                  MCP server
+                </NuxtLink>
+              </li>
             </ul>
           </div>
 
