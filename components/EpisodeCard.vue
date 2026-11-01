@@ -6,14 +6,32 @@ interface Episode {
   number: number
   season: number
   summary: string
+  publishedAt?: string
   formattedDate: string
+  duration?: number
   durationFormatted: string
 }
 
-defineProps<{
+const props = defineProps<{
   episode: Episode
   featured?: boolean
 }>()
+
+// Pin the time zone so the server and the browser render the same date.
+const shortDate = computed(() =>
+  props.episode.publishedAt
+    ? new Date(props.episode.publishedAt).toLocaleDateString('en-US', {
+        timeZone: 'America/New_York',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    : props.episode.formattedDate
+)
+
+const length = computed(() =>
+  props.episode.duration ? `${Math.round(props.episode.duration / 60)} min` : props.episode.durationFormatted
+)
 </script>
 
 <template>
@@ -23,22 +41,15 @@ defineProps<{
     <!-- Content -->
     <div class="p-5">
       <!-- Meta -->
-      <div class="flex items-center gap-3 text-sm text-gray-500 mb-3">
+      <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-500 mb-3">
         <span class="bg-spring-100 text-spring-700 px-2 py-0.5 rounded font-medium">
           S{{ episode.season }}E{{ episode.number }}
         </span>
-        <span>{{ episode.formattedDate }}</span>
-        <span class="flex items-center gap-1">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
+        <time :datetime="episode.publishedAt" class="whitespace-nowrap">{{ shortDate }}</time>
+        <span class="whitespace-nowrap">
+          <span aria-hidden="true">·</span>
           <span class="sr-only">Duration:</span>
-          {{ episode.durationFormatted }}
+          {{ length }}
         </span>
       </div>
 

@@ -37,9 +37,10 @@ export default defineEventHandler(async (event) => {
         number: ep.attributes.number,
         season: ep.attributes.season,
         summary: ep.attributes.summary,
+        publishedAt: ep.attributes.published_at,
         formattedDate: ep.attributes.formatted_published_at,
+        duration: ep.attributes.duration,
         durationFormatted: formatDuration(ep.attributes.duration),
-        imageUrl: ep.attributes.image_url,
       }))
   } catch {
     // Silently fail - related episodes are optional

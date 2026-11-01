@@ -6,6 +6,8 @@ useSeoMeta({
 })
 
 const { data: scheduleData, status } = await useFetch('/api/schedule')
+const { data: latestData } = await useFetch('/api/episodes', { query: { perPage: 1 } })
+const latestEpisode = computed(() => latestData.value?.episodes?.[0])
 
 function formatDate(dateString: string): string {
   if (!dateString) return 'TBD'
@@ -117,24 +119,31 @@ function formatTime(dateString: string): string | null {
       </div>
 
       <!-- Empty State -->
-      <div v-else class="text-center py-16 bg-gray-50 rounded-xl">
-        <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
-          </svg>
-        </div>
-        <h2 class="text-xl font-semibold text-gray-900 mb-2">No Upcoming Episodes</h2>
-        <p class="text-gray-600 mb-6">
-          We're planning new content! Check back soon or subscribe to get notified.
+      <div v-else class="mx-auto max-w-xl text-center">
+        <h2 class="text-2xl font-display font-semibold tracking-tight text-gray-900 text-balance">
+          Nothing on the calendar yet
+        </h2>
+        <p class="mt-3 text-gray-600 text-pretty">
+          The next show isn't booked yet. Send us a question for it, or catch the latest episode while you wait.
         </p>
-        <NuxtLink to="/subscribe" class="btn btn-primary">
-          Subscribe Now
-        </NuxtLink>
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+          <NuxtLink to="/potluck" class="btn btn-primary">
+            Ask a question
+          </NuxtLink>
+          <a
+            href="https://www.youtube.com/@SpringSourceDev/streams"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-medium text-spring-700 hover:text-spring-800"
+          >
+            Watch past streams on YouTube →
+          </a>
+        </div>
+
+        <div v-if="latestEpisode" class="mt-12 text-left">
+          <h3 class="mb-3 text-sm font-medium text-gray-500">Latest episode</h3>
+          <EpisodeCard :episode="latestEpisode" />
+        </div>
       </div>
       </div>
     </section>
