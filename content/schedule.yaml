@@ -17,3 +17,12 @@
     beats a paid API. You can participate in our live stream to ask questions or catch the replay
     on your preferred podcast platform.
   youtube: https://www.youtube.com/watch?v=7eQ3eXEI-co
+
+- episode: S5E28
+  title: Community Potluck
+  date: 2026-11-02
+  abstract: >-
+    It's potluck time. Dan and DaShaun set the planned topics aside and answer your questions.
+    We'll cover the new JSON API coming to the JDK, taking Spring AI to production, keeping up
+    with CVEs and upgrades, and a lightning round of career questions. Have a question?
+    Ask it at springofficehours.io/ask or drop it in the live chat.
